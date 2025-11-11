@@ -30,6 +30,14 @@ extern "C"
 #include <uxr/client/visibility.h>
 #include <uxr/client/transport.h>
 
+// Provide stub definition for uxrSerialPlatform if serial transport is disabled
+#if !defined(UCLIENT_PROFILE_SERIAL) || (UCLIENT_PROFILE_SERIAL == 0)
+typedef struct uxrSerialPlatform
+{
+    char _stub;  // Empty struct not allowed in C, so provide a dummy member
+} uxrSerialPlatform;
+#endif
+
 typedef struct uxrSerialTransport
 {
     uint8_t buffer[UXR_CONFIG_SERIAL_TRANSPORT_MTU];
